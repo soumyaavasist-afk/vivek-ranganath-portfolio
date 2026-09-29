@@ -1,0 +1,111 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), ui-serif, Georgia, serif;
+
+  --color-ivory: #f5f1e8;
+  --color-stone: #e8e1d6;
+  --color-charcoal: #181715;
+  --color-warm-grey: #68635b;
+  --color-bronze: #94704b;
+  --color-paper: #fcfbf8;
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+}
+
+:root {
+  color-scheme: light;
+  --background: #f5f1e8;
+  --foreground: #181715;
+  --card: #fcfbf8;
+  --card-foreground: #181715;
+  --popover: #fcfbf8;
+  --popover-foreground: #181715;
+  --primary: #181715;
+  --primary-foreground: #fcfbf8;
+  --secondary: #e8e1d6;
+  --secondary-foreground: #181715;
+  --muted: #e8e1d6;
+  --muted-foreground: #68635b;
+  --accent: #94704b;
+  --accent-foreground: #fcfbf8;
+  --destructive: #9b2c2c;
+  --border: rgb(24 23 21 / 0.14);
+  --input: rgb(24 23 21 / 0.22);
+  --ring: #94704b;
+  --radius: 0.125rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+  .font-serif {
+    font-variant-numeric: lining-nums;
+  }
+  ::selection {
+    background: #94704b;
+    color: #fcfbf8;
+  }
+  :focus-visible {
+    outline: 2px solid #94704b;
+    outline-offset: 3px;
+  }
+}
+
+@utility eyebrow {
+  font-size: 0.6875rem;
+  line-height: 1rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+@keyframes scrollcue {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(200%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
