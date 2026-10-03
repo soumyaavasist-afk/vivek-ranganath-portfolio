@@ -1,4 +1,3 @@
-import { Navbar } from '@/components/navbar'
 import { Hero } from '@/components/hero'
 import { About } from '@/components/about'
 import { ProjectShowcase } from '@/components/project-showcase'
@@ -17,7 +16,6 @@ export default function Home() {
       >
         Skip to content
       </a>
-      <Navbar />
       <main id="main">
         <Hero />
         <About />

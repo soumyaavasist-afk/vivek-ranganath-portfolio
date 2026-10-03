@@ -37,7 +37,7 @@ export const navItems = [
 ]
 
 export const images = {
-  hero: '/images/hero.png',
+  hero: '/images/hero-final.png',
   portrait: '/images/artist-portrait.png',
   approach: '/images/approach.png',
   logo: '/images/logo.svg',

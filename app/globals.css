@@ -69,10 +69,12 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 5rem;
+    overflow-x: clip;
   }
   body {
     @apply bg-background text-foreground font-sans;
     font-feature-settings: 'ss01', 'cv11';
+    overflow-x: clip;
   }
   .font-serif {
     font-variant-numeric: lining-nums;
