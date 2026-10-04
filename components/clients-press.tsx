@@ -29,21 +29,15 @@ export function Clients() {
             {clients.map((client) => (
               <li
                 key={client.name}
-                className="flex aspect-[3/2] items-center justify-center border-r border-b border-charcoal/15 p-6 md:aspect-[2/1]"
+                className="group flex aspect-[3/2] items-center justify-center border-r border-b border-charcoal/15 bg-paper/30 p-6 transition-colors duration-300 hover:bg-paper/70 md:aspect-[2/1] md:p-8"
               >
-                {client.logo ? (
-                  <Image
-                    src={client.logo}
-                    alt={client.name}
-                    width={200}
-                    height={80}
-                    className="h-10 w-auto object-contain grayscale md:h-12"
-                  />
-                ) : (
-                  <span className="text-center font-serif text-xl tracking-wide text-charcoal/75 md:text-2xl">
-                    {client.name}
-                  </span>
-                )}
+                <Image
+                  src={client.logo}
+                  alt={`${client.name} logo`}
+                  width={client.width}
+                  height={client.height}
+                  className={`w-auto max-w-full object-contain transition-transform duration-300 group-hover:scale-[1.03] ${client.logoClassName}`}
+                />
               </li>
             ))}
           </ul>

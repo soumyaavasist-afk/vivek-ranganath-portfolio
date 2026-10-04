@@ -4,13 +4,14 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { images, navItems, portfolio } from '@/data/site'
+import { images, navItems } from '@/data/site'
 import { cn } from '@/lib/utils'
 import { CtaLink } from './cta-link'
 
-export function Navbar() {
+export function Navbar({ homePath = '' }: { homePath?: string }) {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const homeAnchor = (href: string) => `${homePath}${href}`
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -34,7 +35,7 @@ export function Navbar() {
       )}
     >
       <div className="mx-auto flex h-20 max-w-[1600px] items-center justify-between gap-6 px-5 md:px-10">
-        <a href="#home" className="shrink-0" aria-label="Vivek Ranganath — back to top">
+        <a href={homeAnchor('#home')} className="shrink-0" aria-label="Vivek Ranganath — back to top">
           <Image src={images.logo} alt="Vivek Ranganath" width={437} height={103} priority className="h-8 w-auto md:h-9" />
         </a>
 
@@ -42,7 +43,7 @@ export function Navbar() {
           <ul className="flex items-center gap-7">
             {navItems.map((item) => (
               <li key={item.href}>
-                <a href={item.href} className="eyebrow text-warm-grey transition-colors duration-300 hover:text-charcoal">
+                <a href={homeAnchor(item.href)} className="eyebrow text-warm-grey transition-colors duration-300 hover:text-charcoal">
                   {item.label}
                 </a>
               </li>
@@ -51,7 +52,7 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <CtaLink href="#contact" className="hidden md:inline-flex">
+          <CtaLink href={homeAnchor('#contact')} className="hidden md:inline-flex">
             Discuss a Project
           </CtaLink>
           <button
@@ -82,7 +83,7 @@ export function Navbar() {
                 {navItems.map((item, i) => (
                   <li key={item.href} className="border-b border-charcoal/10">
                     <a
-                      href={item.href}
+                      href={homeAnchor(item.href)}
                       onClick={() => setOpen(false)}
                       className="flex items-baseline justify-between py-4 font-serif text-3xl text-charcoal"
                     >
@@ -93,10 +94,7 @@ export function Navbar() {
                 ))}
               </ul>
               <div className="mt-10 flex flex-col gap-3">
-                <CtaLink href="#contact">Discuss a Project</CtaLink>
-                <CtaLink href={portfolio.href} variant="outline" download>
-                  Download Portfolio
-                </CtaLink>
+                <CtaLink href={homeAnchor('#contact')}>Discuss a Project</CtaLink>
               </div>
             </nav>
           </motion.div>

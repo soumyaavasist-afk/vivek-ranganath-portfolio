@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { contact, images, navItems, portfolio } from '@/data/site'
+import { contact, images, navItems } from '@/data/site'
 import { Reveal } from './reveal'
 import { CtaLink, SectionLabel } from './cta-link'
 import { InquiryForm } from './inquiry-form'
@@ -45,9 +45,6 @@ export function Contact() {
             </dl>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
               <CtaLink href={contact.whatsappHref}>WhatsApp</CtaLink>
-              <CtaLink href={portfolio.href} variant="outline" download>
-                Download Portfolio
-              </CtaLink>
             </div>
           </Reveal>
         </div>
@@ -63,7 +60,7 @@ export function Contact() {
   )
 }
 
-export function Footer() {
+export function Footer({ homePath = '' }: { homePath?: string }) {
   const socials = [
     { label: 'LinkedIn', href: contact.linkedin },
     { label: 'Instagram', href: contact.instagram },
@@ -83,7 +80,7 @@ export function Footer() {
             <ul className="mt-5 grid grid-cols-2 gap-y-2 text-sm">
               {navItems.map((item) => (
                 <li key={item.href}>
-                  <a href={item.href} className="text-charcoal hover:text-bronze">
+                  <a href={`${homePath}${item.href}`} className="text-charcoal hover:text-bronze">
                     {item.label}
                   </a>
                 </li>

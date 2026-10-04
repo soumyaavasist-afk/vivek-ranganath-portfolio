@@ -6,6 +6,7 @@ import { Approach, Process } from '@/components/approach'
 import { Clients, Press } from '@/components/clients-press'
 import { CommissionCta } from '@/components/commission-cta'
 import { Contact, Footer } from '@/components/contact'
+import { Navbar } from '@/components/navbar'
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       >
         Skip to content
       </a>
+      <Navbar />
       <main id="main">
         <Hero />
         <About />

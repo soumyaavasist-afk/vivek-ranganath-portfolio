@@ -2,8 +2,8 @@
 
 import Image from 'next/image'
 import { motion, useReducedMotion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
-import { images } from '@/data/site'
+import { ArrowDown, ArrowRight, MapPin } from 'lucide-react'
+import { contact, heroStats, images } from '@/data/site'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
@@ -20,92 +20,80 @@ export function Hero() {
     <section
       id="home"
       aria-labelledby="hero-title"
-      className="relative isolate min-h-[min(100svh,620px)] h-[100svh] w-full max-w-[100vw] overflow-x-clip overflow-hidden bg-[#181715] max-md:min-h-[700px]"
+      className="mt-20 grid min-h-[calc(100dvh-5rem)] grid-cols-1 bg-ivory md:grid-cols-[44%_56%] lg:h-[calc(100dvh-5rem)] lg:grid-cols-[34%_66%]"
     >
       <motion.div
-        initial={reduce ? false : { scale: 1.08, opacity: 0 }}
+        {...fade(0.12)}
+        className="flex min-h-[680px] flex-col justify-center px-7 py-10 sm:px-10 md:min-h-0 md:px-6 md:py-8 lg:px-8 lg:py-4 xl:px-10 2xl:px-14"
+      >
+        <div className="w-full">
+          <p className="text-[0.68rem] font-medium tracking-[0.2em] text-charcoal/75 uppercase">
+            Visual Artist · Art Consultant · Designer
+          </p>
+
+          <h1 id="hero-title" className="mt-7 font-serif text-[3.5rem] font-medium leading-[0.9] text-charcoal sm:text-[4rem] md:text-[3.5rem] lg:text-[3.75rem] xl:text-[5rem] 2xl:text-[5.375rem]">
+            Vivek
+            <br />
+            <span className="whitespace-nowrap italic">Ranganath</span>
+          </h1>
+
+          <div className="mt-5 flex items-center gap-3">
+            <span aria-hidden="true" className="h-px w-8 shrink-0 bg-bronze" />
+            <p className="text-[0.66rem] font-medium tracking-[0.18em] text-charcoal uppercase">Contemporary Artist</p>
+          </div>
+
+          <p className="mt-6 max-w-[25.625rem] text-justify text-base leading-[1.55] font-medium text-charcoal/80 md:text-[1.0625rem]">
+            Creating site-specific sculptures, murals and art installations for architecture, hospitality, corporate and luxury developments.
+          </p>
+
+          <a
+            href="#projects"
+            className="mt-7 inline-flex h-[52px] w-[196px] items-center justify-between bg-charcoal px-5 text-[0.65rem] font-medium tracking-[0.17em] text-paper uppercase transition-colors hover:bg-bronze"
+          >
+            View Projects
+            <ArrowRight size={16} strokeWidth={1.5} aria-hidden="true" />
+          </a>
+
+          <dl className="mt-8 grid grid-cols-3 border-y border-charcoal/15 py-3">
+            {heroStats.map((stat) => (
+              <div key={stat.label} className="grid min-w-0 grid-rows-[24px_1fr] border-r border-charcoal/15 px-1 first:pl-0 last:border-r-0 last:pr-0 sm:px-3 md:px-1 xl:px-3">
+                <dt className={stat.value === 'Site-Specific' ? 'whitespace-nowrap font-serif font-medium text-[0.78rem] leading-6 text-charcoal md:text-[0.7rem] lg:text-[0.78rem] xl:text-[1.125rem] 2xl:text-xl' : 'font-serif text-xl leading-6 font-medium text-charcoal xl:text-2xl'}>
+                  {stat.value}
+                </dt>
+                <dd className="mt-1 text-[0.55rem] leading-[1.5] font-medium tracking-[0.08em] text-charcoal/75 uppercase sm:text-[0.6rem]">
+                  {stat.label}
+                </dd>
+              </div>
+            ))}
+          </dl>
+
+          <p className="mt-5 flex items-center gap-2 text-[0.58rem] font-medium tracking-[0.15em] text-charcoal/70 uppercase">
+            <MapPin size={12} strokeWidth={1.5} aria-hidden="true" />
+            {contact.location}
+          </p>
+
+          <a href="#about" className="mt-4 inline-flex w-fit items-center gap-2 text-[0.56rem] font-medium tracking-[0.18em] text-charcoal/60 uppercase transition-colors hover:text-charcoal">
+            Scroll
+            <ArrowDown size={12} strokeWidth={1.5} aria-hidden="true" />
+          </a>
+        </div>
+      </motion.div>
+
+      <motion.div
+        initial={reduce ? false : { scale: 1.04, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1.8, ease }}
-        className="absolute inset-0"
+        transition={{ duration: 1.4, ease }}
+        className="relative min-h-[55svh] overflow-hidden md:min-h-0"
       >
         <Image
           src={images.hero}
-          alt="Architectural interior with mural and warm natural light"
+          alt="Sculpture and monumental mural in a contemporary architectural lobby"
           fill
           priority
-          sizes="100vw"
-          className="scale-[1.04] object-cover object-center"
-          style={{ objectPosition: 'center 52%' }}
+          sizes="(min-width: 1024px) 66vw, 100vw"
+          className="object-cover object-[center_52%]"
         />
       </motion.div>
-
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-full bg-[linear-gradient(90deg,rgba(245,241,232,0.96)_0%,rgba(245,241,232,0.91)_31%,rgba(245,241,232,0.24)_54%,rgba(245,241,232,0)_68%)] md:w-[62%]" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-[58%] bg-[linear-gradient(90deg,rgba(34,29,24,0.12)_0%,rgba(34,29,24,0.76)_38%,rgba(34,29,24,0.88)_100%)] md:w-[31%]" />
-
-      <motion.div
-        {...fade(0.12)}
-        className="absolute left-[7vw] top-1/2 z-20 w-[min(34rem,48vw)] -translate-y-1/2 px-1 text-[#181715] max-md:left-[7vw] max-md:top-[8vh] max-md:w-[82vw] max-md:translate-y-0"
-      >
-        <p className="text-[0.62rem] font-medium tracking-[0.25em] uppercase text-[#403a33] md:text-[0.7rem]">ART · SPACES · PEOPLE · STORIES</p>
-
-        <h1
-          id="hero-title"
-          className="mt-4 font-serif text-[clamp(3.8rem,6.1vw,6.6rem)] font-normal leading-[0.83] tracking-[-0.055em] text-[#181715] md:mt-5"
-        >
-          Vivek
-          <br />
-          Ranganath
-        </h1>
-
-        <p className="mt-5 max-w-[22rem] font-serif text-[clamp(1.55rem,2vw,2.25rem)] font-normal leading-[1.02] tracking-[-0.025em] text-[#28241f] md:mt-6">
-          Transforming spaces
-          <br />
-          through art, culture
-          <br />
-          and human stories.
-        </p>
-
-        <div className="mt-6 flex items-center gap-4 md:mt-7">
-          <a
-            href="#projects"
-            aria-label="Explore my work"
-            className="inline-flex size-12 items-center justify-center rounded-full bg-[#181715] text-[#fcfbf8] transition-transform duration-500 hover:scale-105 md:size-[52px]"
-          >
-            <ArrowRight size={20} strokeWidth={1.5} />
-          </a>
-
-          <a href="#projects" className="text-[0.64rem] font-medium uppercase tracking-[0.17em] text-[#181715] transition-opacity hover:opacity-70 md:text-[0.7rem]">
-            EXPLORE MY WORK
-          </a>
-        </div>
-      </motion.div>
-
-      <motion.div
-        {...fade(0.22)}
-        className="absolute right-[5vw] top-1/2 z-20 w-[min(15rem,19vw)] -translate-y-1/2 text-[#fcfbf8] drop-shadow-[0_2px_12px_rgba(0,0,0,0.35)] max-md:right-[7vw] max-md:top-auto max-md:bottom-[9vh] max-md:w-[42vw] max-md:translate-y-0"
-      >
-        <div className="mb-1 text-[2.8rem] leading-none text-[#fcfbf8] md:text-[3.2rem]">“</div>
-
-        <p className="font-serif text-[clamp(1.8rem,2.45vw,3rem)] font-normal leading-[0.94] tracking-[-0.025em] text-[#fcfbf8]">
-          Art gives
-          <br />
-          soul to
-          <br />
-          spaces.
-        </p>
-
-        <div className="mt-4 font-serif text-[1.1rem] italic text-[#fcfbf8]/90 md:mt-5 md:text-[1.2rem]">Vivek Ranganath</div>
-      </motion.div>
-
-      <div className="absolute bottom-5 right-[5vw] z-20 max-md:right-auto max-md:left-[7vw] md:bottom-7">
-        <div className="flex flex-col items-center gap-2.5 text-[#fcfbf8]">
-          <div className="flex size-10 items-center justify-center rounded-full border border-[#fcfbf8]/65 bg-[#181715]/25 text-[0.5rem] font-normal tracking-[0.2em] uppercase backdrop-blur-[8px]">
-            <span className="translate-x-[1px]">●</span>
-          </div>
-          <span className="text-[0.55rem] font-medium tracking-[0.22em] uppercase">SCROLL</span>
-          <span className="h-7 w-px bg-[#fcfbf8]/65" />
-        </div>
-      </div>
     </section>
   )
 }

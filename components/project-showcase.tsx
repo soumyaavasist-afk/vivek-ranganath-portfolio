@@ -2,32 +2,33 @@ import Image from 'next/image'
 import { projects, type Project } from '@/data/site'
 import { cn } from '@/lib/utils'
 import { ImageReveal, Reveal } from './reveal'
-import { CtaLink, SectionLabel } from './cta-link'
+import { CtaLink } from './cta-link'
 
 function ProjectMeta({ project }: { project: Project }) {
   const rows = [
-    { label: 'Medium', value: project.medium },
-    { label: 'Size', value: project.size },
-    { label: 'Location', value: project.location },
-    { label: 'Application', value: project.application },
+    { label: 'Size', value: project.size.startsWith('00') ? 'To be confirmed' : project.size },
+    { label: 'Location', value: project.location.replace('Location to be confirmed', 'To be confirmed') },
   ]
+
   return (
     <div>
-      <p className="font-serif text-6xl leading-none font-light text-bronze md:text-7xl">{project.number}</p>
-      <h3 className="mt-6 font-serif text-3xl leading-tight text-charcoal md:text-4xl text-balance">{project.name}</h3>
-      <dl className="mt-8 border-t border-charcoal/15">
+      <h3 id={`project-title-${project.number}`} className="font-serif text-3xl leading-tight font-medium text-charcoal text-balance md:text-[2.5rem]">
+        {project.medium}
+      </h3>
+      <p className="eyebrow mt-2 text-[0.625rem] text-bronze">{project.application}</p>
+      <p className="mt-4 max-w-[36rem] text-[0.95rem] leading-relaxed text-warm-grey md:text-base">
+        {project.conceptNote}
+      </p>
+      <dl className="mt-5 border-t border-charcoal/15">
         {rows.map((row) => (
-          <div key={row.label} className="grid grid-cols-[7rem_1fr] gap-4 border-b border-charcoal/15 py-3.5 text-sm">
+          <div key={row.label} className="grid grid-cols-[7rem_1fr] gap-4 border-b border-charcoal/15 py-3.5 text-[0.9375rem]">
             <dt className="eyebrow pt-0.5 text-[0.625rem] text-warm-grey">{row.label}</dt>
-            <dd className="text-charcoal">{row.value}</dd>
+            <dd className="font-medium text-charcoal">{row.value}</dd>
           </div>
         ))}
       </dl>
       {project.customisedForSite && (
-        <p className="eyebrow mt-5 flex items-center gap-3 text-[0.625rem] text-bronze">
-          <span aria-hidden="true" className="size-1.5 rounded-full bg-bronze" />
-          Customised for site
-        </p>
+        <p className="eyebrow mt-4 text-[0.625rem] text-bronze">Customised for site</p>
       )}
     </div>
   )
@@ -38,7 +39,7 @@ function ProjectImage({ project, sizes, className }: { project: Project; sizes: 
     <ImageReveal className={cn('relative overflow-hidden bg-stone', className)}>
       <Image src={project.image} alt={project.imageAlt} fill sizes={sizes} className="object-cover" />
       {project.placeholder && (
-        <span className="eyebrow absolute top-4 left-4 bg-ivory/85 px-2.5 py-1.5 text-[0.5625rem] text-warm-grey">
+        <span className="eyebrow absolute top-4 left-4 bg-ivory/90 px-3 py-2 text-[0.5625rem] text-charcoal">
           Concept image
         </span>
       )}
@@ -46,32 +47,17 @@ function ProjectImage({ project, sizes, className }: { project: Project; sizes: 
   )
 }
 
-function ProjectRow({ project, index }: { project: Project; index: number }) {
-  if (index === 0) {
-    return (
-      <article aria-labelledby={`project-${project.number}`} className="grid gap-10 lg:grid-cols-12">
-        <ProjectImage project={project} sizes="100vw" className="aspect-[4/3] lg:col-span-12 lg:aspect-[21/9]" />
-        <Reveal className="lg:col-span-5 lg:col-start-8" >
-          <div id={`project-${project.number}`}>
-            <ProjectMeta project={project} />
-          </div>
-        </Reveal>
-      </article>
-    )
-  }
-
-  const reversed = index % 2 === 0
+function ProjectRow({ project, position }: { project: Project; position: number }) {
+  const imageOnRight = position % 2 === 1
   return (
-    <article aria-labelledby={`project-${project.number}`} className="grid items-end gap-10 lg:grid-cols-12 lg:gap-10">
+    <article aria-labelledby={`project-title-${project.number}`} className="grid items-center gap-8 lg:grid-cols-12 lg:gap-10">
       <ProjectImage
         project={project}
         sizes="(min-width: 1024px) 58vw, 100vw"
-        className={cn('aspect-[4/3] lg:col-span-7', reversed && 'lg:order-2 lg:col-start-6')}
+        className={cn('aspect-[4/3] lg:col-span-7 lg:aspect-[3/2]', imageOnRight && 'lg:order-2 lg:col-start-6')}
       />
-      <Reveal className={cn('lg:col-span-4', reversed ? 'lg:order-1 lg:col-start-1' : 'lg:col-start-9')}>
-        <div id={`project-${project.number}`}>
-          <ProjectMeta project={project} />
-        </div>
+      <Reveal className={cn('lg:col-span-4', imageOnRight ? 'lg:order-1 lg:col-start-1' : 'lg:col-start-9')}>
+        <ProjectMeta project={project} />
       </Reveal>
     </article>
   )
@@ -79,36 +65,34 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
 
 export function ProjectShowcase() {
   return (
-    <section id="projects" aria-labelledby="projects-title" className="py-24 md:py-36">
+    <section id="projects" aria-labelledby="projects-title" className="pt-10 pb-10 md:pt-14 md:pb-12">
       <div className="mx-auto max-w-[1600px] px-5 md:px-10 xl:px-14">
-        <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-7">
-            <Reveal>
-              <SectionLabel index="02">Selected Works</SectionLabel>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <h2
-                id="projects-title"
-                className="mt-10 font-serif text-[clamp(2.5rem,5vw,5rem)] leading-[0.98] font-light text-charcoal text-balance"
-              >
-                Selected <span className="italic">Projects</span>
-              </h2>
-            </Reveal>
-          </div>
-          <Reveal delay={0.2} className="lg:col-span-4 lg:col-start-9">
-            <p className="max-w-md text-lg leading-relaxed text-warm-grey text-pretty">
+        <header className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(240px,340px)] lg:items-end">
+          <div>
+            <h2
+              id="projects-title"
+              className="font-serif text-[clamp(2.5rem,4.4vw,4rem)] leading-[1.02] font-normal text-charcoal text-balance"
+            >
+              Selected <span className="italic text-bronze">Projects</span>
+            </h2>
+            <p className="mt-4 max-w-[580px] text-base leading-relaxed font-medium text-warm-grey text-pretty md:text-lg">
               A selection of works created for architectural, hospitality and commercial environments.
             </p>
-          </Reveal>
-        </div>
+          </div>
 
-        <div className="mt-20 flex flex-col gap-24 md:mt-28 md:gap-36">
-          {projects.map((project, i) => (
-            <ProjectRow key={project.number} project={project} index={i} />
+          <blockquote className="max-w-[340px] border-l border-charcoal/15 pl-5 font-serif text-lg leading-snug font-medium italic text-warm-grey lg:justify-self-end">
+            Art that enriches spaces and creates lasting experiences.
+            <span aria-hidden="true" className="mt-4 block h-px w-8 bg-bronze" />
+          </blockquote>
+        </header>
+
+        <div className="mt-10 flex flex-col gap-16 md:mt-14 md:gap-24">
+          {projects.map((project, position) => (
+            <ProjectRow key={project.number} project={project} position={position} />
           ))}
         </div>
 
-        <Reveal className="mt-24 flex flex-col items-start justify-between gap-8 border-t border-charcoal/15 pt-10 md:flex-row md:items-center">
+        <Reveal className="mt-16 flex flex-col items-start justify-between gap-8 border-t border-charcoal/15 pt-8 md:flex-row md:items-center">
           <p className="max-w-lg font-serif text-2xl leading-snug text-charcoal md:text-3xl text-balance">
             Planning a space that deserves a signature artwork?
           </p>

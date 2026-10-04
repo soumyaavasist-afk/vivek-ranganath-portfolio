@@ -18,13 +18,6 @@ export const contact = {
   instagram: 'https://www.instagram.com/',
 }
 
-export const portfolio = {
-  label: 'Architect & Developer Portfolio',
-  // TODO: replace with the final 10–15 page sales portfolio PDF
-  href: '/portfolio/vivek-ranganath-architect-developer-portfolio.pdf',
-  meta: 'PDF · Sales portfolio',
-}
-
 export const navItems = [
   { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },
@@ -37,7 +30,8 @@ export const navItems = [
 ]
 
 export const images = {
-  hero: '/images/hero-final.png',
+  hero: '/images/hero.png',
+  about: '/images/about-artwork-final.png',
   portrait: '/images/artist-portrait.png',
   approach: '/images/approach.png',
   logo: '/images/logo.svg',
@@ -63,6 +57,7 @@ export type Project = {
   size: string
   location: string
   application: string
+  conceptNote: string
   customisedForSite?: boolean
   image: string
   imageAlt: string
@@ -77,9 +72,10 @@ export const projects: Project[] = [
     size: '00 ft (W) × 00 ft (H)',
     location: 'Location to be confirmed',
     application: 'Hotel Lobby',
+    conceptNote: 'A sweeping mixed-media mural gives the hotel lobby a strong focal point, carrying warm ochre, deep blue and stone tones across the arrival space.',
     customisedForSite: true,
-    image: '/images/works/project-01.png',
-    imageAlt: 'Concept image: large mural across a hotel lobby wall above a stone reception desk',
+    image: '/images/first-work.png',
+    imageAlt: 'Wide view of a contemporary hotel lobby with a large mural and seating area',
     placeholder: true,
   },
   {
@@ -89,6 +85,7 @@ export const projects: Project[] = [
     size: '00 ft (H)',
     location: 'Location to be confirmed',
     application: 'Corporate Campus · Water Body',
+    conceptNote: 'A sculptural bronze-and-steel form is imagined beside still water, where its geometric silhouette meets the architecture and landscape.',
     customisedForSite: true,
     image: '/images/works/project-02.png',
     imageAlt: 'Concept image: monumental sculpture in a reflecting pool before a corporate building',
@@ -101,6 +98,7 @@ export const projects: Project[] = [
     size: '00 ft (W) × 00 ft (H)',
     location: 'Location to be confirmed',
     application: 'Corporate Lobby',
+    conceptNote: 'A suspended brass-and-terracotta installation introduces movement overhead, bringing material warmth and rhythm to the lobby.',
     customisedForSite: true,
     image: '/images/works/project-03.png',
     imageAlt: 'Concept image: suspended wave installation in a double-height corporate lobby',
@@ -113,6 +111,7 @@ export const projects: Project[] = [
     size: '00 ft (W) × 00 ft (H)',
     location: 'Location to be confirmed',
     application: 'Apartment Entrance',
+    conceptNote: 'A textured relief mural adds depth to the entrance, creating a tactile first impression that sits naturally within the architecture.',
     image: '/images/works/project-04.png',
     imageAlt: 'Concept image: textured relief mural in a residential entrance lobby',
     placeholder: true,
@@ -124,6 +123,7 @@ export const projects: Project[] = [
     size: '00 ft (H)',
     location: 'Location to be confirmed',
     application: 'Resort · Landscape',
+    conceptNote: 'An outdoor sculpture is positioned within a garden setting, using material and scale to create a quiet landmark.',
     customisedForSite: true,
     image: '/images/works/project-05.png',
     imageAlt: 'Concept image: outdoor sculpture in a resort courtyard beside a pool',
@@ -136,6 +136,7 @@ export const projects: Project[] = [
     size: '00 ft (W) × 00 ft (H)',
     location: 'Location to be confirmed',
     application: 'Clubhouse',
+    conceptNote: 'Layered acrylic forms bring color and character to the clubhouse lounge, complementing its curved walls and social atmosphere.',
     image: '/images/works/project-06.png',
     imageAlt: 'Concept image: vibrant figurative mural across the curved wall of a clubhouse lounge',
     placeholder: true,
@@ -146,15 +147,16 @@ export type Application = {
   name: string
   image: string
   imageAlt: string
+  href?: string
 }
 
 export const applications: Application[] = [
-  { name: 'Luxury Residences', image: '/images/applications/luxury-residences.png', imageAlt: 'Artwork in a luxury residence living room' },
-  { name: 'Apartment Entrances', image: '/images/works/project-04.png', imageAlt: 'Mural in an apartment entrance lobby' },
-  { name: 'Clubhouses', image: '/images/works/project-06.png', imageAlt: 'Mural in a clubhouse lounge' },
-  { name: 'Corporate Lobbies', image: '/images/applications/corporate-lobbies.png', imageAlt: 'Wall installation in a corporate lobby' },
-  { name: 'Hotel Lobbies', image: '/images/works/project-01.png', imageAlt: 'Mural in a hotel lobby' },
-  { name: 'Resorts', image: '/images/works/project-05.png', imageAlt: 'Sculpture in a resort courtyard' },
+  { name: 'Luxury Residences', image: '/images/applications/luxury-residences.png', imageAlt: 'Artwork in a luxury residence living room', href: '/applications/luxury-residences' },
+  { name: 'Apartment Entrances', image: '/images/apartments/Luxurious Lobby with Abstract Gold Art.png', imageAlt: 'Abstract artwork integrated into a luxury apartment entrance lobby', href: '/applications/apartment-entrances' },
+  { name: 'Clubhouses', image: '/images/clubhouses/hero-mural-lounge.jpg', imageAlt: 'Mural-led clubhouse lounge', href: '/applications/clubhouses' },
+  { name: 'Corporate Lobbies', image: '/images/applications/corporate-lobbies.png', imageAlt: 'Wall installation in a corporate lobby', href: '/applications/corporate-lobbies' },
+  { name: 'Hotel Lobbies', image: '/images/hotel-lobbies/hotel-hero.jpg', imageAlt: 'Art-led reception in a contemporary hotel lobby', href: '/applications/hotel-lobbies' },
+  { name: 'Resorts', image: '/images/resorts/resort-hero.jpg', imageAlt: 'Reflecting pool and sculptural arrival arch at a tropical resort', href: '/applications/resorts' },
   { name: 'Landscape Areas', image: '/images/applications/landscape-areas.png', imageAlt: 'Sculpture in a landscaped garden' },
   { name: 'Water Bodies', image: '/images/applications/water-bodies.png', imageAlt: 'Sculpture rising from still water' },
   { name: 'Reception Spaces', image: '/images/applications/reception-spaces.png', imageAlt: 'Mural above a reception desk' },
@@ -176,11 +178,35 @@ export const processSteps = [
  * `logo` is null until official logo files are supplied — a typographic
  * wordmark is rendered in the meantime.
  */
-export const clients: { name: string; logo: string | null }[] = [
-  { name: 'World Trade Center', logo: null },
-  { name: 'Biocon', logo: null },
-  { name: 'Sun Pharma', logo: null },
-  { name: 'GRT Jewellers', logo: null },
+export const clients: { name: string; logo: string; width: number; height: number; logoClassName: string }[] = [
+  {
+    name: 'World Trade Center',
+    logo: '/images/clients/wtc-bengaluru-transparent.png',
+    width: 612,
+    height: 126,
+    logoClassName: 'h-10 max-w-[230px] md:h-12',
+  },
+  {
+    name: 'Biocon',
+    logo: '/images/clients/biocon.png',
+    width: 240,
+    height: 92,
+    logoClassName: 'h-12 max-w-[190px] md:h-14',
+  },
+  {
+    name: 'Sun Pharma',
+    logo: '/images/clients/sun-pharma.svg',
+    width: 312,
+    height: 419,
+    logoClassName: 'h-20 max-w-[5.5rem]',
+  },
+  {
+    name: 'GRT Jewellers',
+    logo: '/images/clients/grt-jewellers.png',
+    width: 339,
+    height: 220,
+    logoClassName: 'h-14 max-w-[8rem] mix-blend-multiply md:h-16',
+  },
 ]
 
 export const press = {

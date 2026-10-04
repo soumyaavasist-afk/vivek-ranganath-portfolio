@@ -2,6 +2,11 @@
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 
+@source '../components/clubhouses-page.tsx';
+@source '../components/corporate-lobbies-page.tsx';
+@source '../components/hotel-lobbies-page.tsx';
+@source '../components/resorts-page.tsx';
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

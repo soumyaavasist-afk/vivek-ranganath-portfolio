@@ -1,4 +1,4 @@
-import { commissionOfferings, contact, portfolio } from '@/data/site'
+import { commissionOfferings, contact } from '@/data/site'
 import { Reveal } from './reveal'
 import { CtaLink, SectionLabel } from './cta-link'
 
@@ -47,9 +47,6 @@ export function CommissionCta() {
           </CtaLink>
           <CtaLink href={`mailto:${contact.email}?subject=Commission%20enquiry`} variant="outline-light">
             Email Us
-          </CtaLink>
-          <CtaLink href={portfolio.href} variant="outline-light" download>
-            Download Portfolio
           </CtaLink>
         </Reveal>
       </div>
